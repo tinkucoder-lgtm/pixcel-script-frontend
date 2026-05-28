@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 // Backend endpoint (single source; swap for prod via env var later)
 const API_BASE = "http://localhost:8002";
@@ -107,6 +108,17 @@ export default function CreatePage() {
   const currentImageUrl = imageHistory[historyIndex] ?? null;
   const canGoPrev = ui.kind === "success" && historyIndex > 0;
   const canGoNext = ui.kind === "success" && historyIndex < imageHistory.length - 1;
+
+  // Prefill `description` from `?description=…` on first mount — used when the
+  // marketing home's hero prompt-bar links here. Only seeds when empty so we
+  // never clobber whatever the user has typed mid-session.
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const fromUrl = searchParams.get("description");
+    if (fromUrl && description === "") setDescription(fromUrl);
+    // intentionally run once on mount; later URL changes shouldn't overwrite
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Drive the elapsed timer when loading
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
