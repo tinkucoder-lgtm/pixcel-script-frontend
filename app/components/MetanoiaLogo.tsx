@@ -4,6 +4,7 @@ interface MetanoiaLogoProps {
 
 /**
  * Brand wordmark — "Metanoia" inside a tilted orbit with two revolving stars.
+ * Uses --font-serif (Fraunces) which is already loaded in app/layout.tsx.
  * Override sizing via className (e.g. className="h-10 w-auto").
  */
 export function MetanoiaLogo({ className }: MetanoiaLogoProps) {
@@ -38,10 +39,12 @@ export function MetanoiaLogo({ className }: MetanoiaLogoProps) {
         y="208"
         textAnchor="middle"
         fill="#ffffff"
-        fontFamily="'Playfair Display', Georgia, serif"
-        fontWeight={500}
-        fontSize={88}
-        letterSpacing="0.015em"
+        style={{
+          fontFamily: 'var(--font-serif), Georgia, serif',
+          fontWeight: 500,
+          fontSize: '88px',
+          letterSpacing: '0.015em',
+        }}
       >
         Metanoia
       </text>
