@@ -1,1 +1,32 @@
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 360" role="img" aria-label="Metanoia">
+<title>Metanoia</title>
+<desc>The Metanoia wordmark within a tilted elliptical orbit with two revolving stars.</desc>
+<style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&amp;display=swap');
+.wordmark { font-family: 'Playfair Display', 'Georgia', serif; font-weight: 500; font-size: 88px; fill: #ffffff; letter-spacing: 0.015em; }
+.orbit { fill: none; stroke: #8a93d0; stroke-width: 1.2; opacity: 0.55; }
+.star { fill: #ffffff; opacity: 0.92; }
+.halo { fill: #ffffff; opacity: 0.22; }
+.orb { fill: #ffffff; }
+</style>
+<g transform="rotate(-14 340 180)">
+<ellipse class="orbit" cx="340" cy="180" rx="315" ry="112"/>
+</g>
+<text class="wordmark" x="340" y="208" text-anchor="middle">Metanoia</text>
+<g transform="rotate(-14 340 180)">
+<g>
+<path class="star" d="M 0 -17 L 1.6 -1.6 L 17 0 L 1.6 1.6 L 0 17 L -1.6 1.6 L -17 0 L -1.6 -1.6 Z"/>
+<circle class="halo" r="7"/>
+<circle class="orb" r="4"/>
+<animate attributeName="opacity" values="1;0.7;1" dur="3s" repeatCount="indefinite"/>
+<animateMotion dur="14s" repeatCount="indefinite" path="M 655 180 A 315 112 0 1 1 25 180 A 315 112 0 1 1 655 180"/>
+</g>
+<g>
+<path class="star" d="M 0 -17 L 1.6 -1.6 L 17 0 L 1.6 1.6 L 0 17 L -1.6 1.6 L -17 0 L -1.6 -1.6 Z"/>
+<circle class="halo" r="7"/>
+<circle class="orb" r="4"/>
+<animate attributeName="opacity" values="1;0.7;1" dur="3.5s" repeatCount="indefinite" begin="-1.5s"/>
+<animateMotion dur="14s" repeatCount="indefinite" begin="-7s" path="M 655 180 A 315 112 0 1 1 25 180 A 315 112 0 1 1 655 180"/>
+</g>
+</g>
+</svg>
