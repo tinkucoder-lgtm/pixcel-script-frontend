@@ -1,8 +1,8 @@
 "use client";
 
-// Shared site header — fixed bar with logo, nav, sign-in, Launch Studio.
+// Shared site header — fixed bar with wordmark, nav, sign-in, Launch Studio.
 // Active route is highlighted via usePathname; mobile drawer slides in
-// at <980px via a local open/close state. Mirrors design-reference markup.
+// at <980px via a local open/close state.
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
@@ -47,18 +47,14 @@ export default function Header() {
         <Link
           href="/"
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
             fontFamily: "var(--serif)",
-            fontWeight: 600,
-            fontSize: "1.32rem",
-            letterSpacing: "-0.01em",
+            fontWeight: 500,
+            fontSize: "1.5rem",
+            letterSpacing: "0.01em",
             color: "var(--text)",
           }}
         >
-          <LogoMark />
-          Pixel<span style={{ color: "var(--cobalt-2)" }}>Script</span>
+          Metanoia
         </Link>
 
         <nav className="ps-nav-main" style={{ display: "flex", alignItems: "center", gap: 30 }}>
@@ -95,7 +91,7 @@ export default function Header() {
         </nav>
 
         <div className="ps-header-actions" style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <a
+          
             href="#"
             className="ps-btn-ghost"
             style={{ fontSize: "0.93rem", color: "var(--text-dim)", transition: "color 0.2s" }}
@@ -185,7 +181,7 @@ export default function Header() {
             {n.label}
           </Link>
         ))}
-        <a
+        
           href="#"
           onClick={(e) => {
             e.preventDefault();
@@ -216,9 +212,6 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Responsive show/hide for desktop links vs hamburger.
-       * Inline styles can't express media queries, so this small style block
-       * carries the breakpoints — same 980px / 540px split as the mockups. */}
       <style jsx global>{`
         .ps-hamburger span {
           width: 24px;
@@ -266,30 +259,3 @@ const hamSpan: React.CSSProperties = {
   borderRadius: 2,
   transition: "0.3s",
 };
-
-function LogoMark() {
-  // Square gradient tile with an inset white border — pulled from the
-  // mockup's .logo-mark + ::after. Reused in the footer too.
-  return (
-    <div
-      style={{
-        width: 26,
-        height: 26,
-        borderRadius: 7,
-        background: "linear-gradient(135deg, var(--cobalt) 0%, var(--cobalt-deep) 100%)",
-        boxShadow: "0 0 18px var(--cobalt-glow)",
-        position: "relative",
-        flexShrink: 0,
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          inset: 6,
-          borderRadius: 3,
-          border: "1.5px solid rgba(255,255,255,0.85)",
-        }}
-      />
-    </div>
-  );
-}
