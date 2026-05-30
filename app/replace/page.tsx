@@ -64,10 +64,10 @@ export default function Home() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await fetch("http://localhost:8002/api/upload", { method: "POST", body: formData });
+      const res = await fetch("https://jayadeepreddy1-metanoia-backend.hf.space/api/upload", { method: "POST", body: formData });
       const data = await res.json();
       setFileId(data.file_id);
-      const processRes = await fetch("http://localhost:8002/api/process", {
+      const processRes = await fetch("https://jayadeepreddy1-metanoia-backend.hf.space/api/process", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ file_id: data.file_id }),
@@ -92,13 +92,13 @@ export default function Home() {
     setStage("replacing");
     setError(null);
     try {
-      const res = await fetch("http://localhost:8002/api/replace-font", {
+      const res = await fetch("https://jayadeepreddy1-metanoia-backend.hf.space/api/replace-font", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ file_id: fileId, font_name: selectedFont.id }),
       });
       const data = await res.json();
-      setOutputImage(`http://localhost:8002${data.output_url}?t=${Date.now()}`);
+      setOutputImage(`https://jayadeepreddy1-metanoia-backend.hf.space${data.output_url}?t=${Date.now()}`);
       setStage("done");
     } catch (e) {
       setError("Font replacement failed. Please try again.");
@@ -108,13 +108,13 @@ export default function Home() {
 
   async function handleHumanize(style: string) {
     setHumanizing(true)
-    const res = await fetch("http://localhost:8002/api/humanize", {
+    const res = await fetch("https://jayadeepreddy1-metanoia-backend.hf.space/api/humanize", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ file_id: fileId, style })
     })
     const data = await res.json()
-    setHumanizedImage("http://localhost:8002" + data.output_url + "?t=" + Date.now())
+    setHumanizedImage("https://jayadeepreddy1-metanoia-backend.hf.space" + data.output_url + "?t=" + Date.now())
     setHumanizing(false)
   }
 

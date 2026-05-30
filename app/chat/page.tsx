@@ -28,7 +28,7 @@ import { takePendingReferenceImages } from "../lib/referenceImageStash";
 import { saveGeneration } from "@/app/actions/generations";
 import { checkGenerationQuota, type QuotaInfo } from "@/app/actions/quota";
 
-const API_BASE = "http://localhost:8002";
+const API_BASE = "https://jayadeepreddy1-metanoia-backend.hf.space";
 // Two endpoints — the JSON one for prompt-only generations, the multipart
 // one when the user attached reference images. The frontend picks based on
 // presence of files; the wire format mirrors the backend's split.

@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 
 // Backend endpoint (single source; swap for prod via env var later)
-const API_BASE = "http://localhost:8002";
+const API_BASE = "https://jayadeepreddy1-metanoia-backend.hf.space";
 
 // Mirrors backend/config/font_presets.py — keep in sync with FONT_PRESETS keys.
 // Each preset has a `previewStyle` whose CSS approximates the preset's vibe
