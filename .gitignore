@@ -35,7 +35,10 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# 'lib/' removed — it was a Python-venv leftover from a polyglot .gitignore
+# template, but matched the Next.js frontend's lib/db/ and app/lib/ too,
+# silently dropping them from every push. Python venvs live under venv/
+# (rule above) which already covers their lib/ subdir.
 lib64/
 parts/
 sdist/
