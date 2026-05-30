@@ -278,7 +278,7 @@ export default function ChatPage() {
         if (fonts.body_font) fd.append("body_font", fonts.body_font);
       }
       if (previousImageUrl) fd.append("previous_image_url", previousImageUrl);
-      referenceImages.forEach((f) => fd.append("reference_images[]", f, f.name));
+      referenceImages.forEach((f) => fd.append("reference_images", f, f.name));
       body = fd;
       // Intentionally NO Content-Type header — the browser writes it with
       // the correct multipart boundary.
