@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 // next/font self-hosts each face and gives us a CSS variable per family.
@@ -34,7 +35,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${fraunces.variable} ${hanken.variable} ${jetbrains.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {/* ClerkProvider goes inside <body>, not wrapping <html>, per
+         * Clerk's current Next.js critical rule. No auth UI is rendered
+         * here — just the provider so server actions and client hooks
+         * can read the auth context. UI placement comes in a later step. */}
+        <ClerkProvider>{children}</ClerkProvider>
+      </body>
     </html>
   );
 }

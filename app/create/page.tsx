@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 // Backend endpoint (single source; swap for prod via env var later)
 const API_BASE = "http://localhost:8002";
@@ -112,9 +111,13 @@ export default function CreatePage() {
   // Prefill `description` from `?description=…` on first mount — used when the
   // marketing home's hero prompt-bar links here. Only seeds when empty so we
   // never clobber whatever the user has typed mid-session.
-  const searchParams = useSearchParams();
   useEffect(() => {
-    const fromUrl = searchParams.get("description");
+    // Read ?description=... directly from window.location to avoid
+    // useSearchParams(), which forces the entire page into a Suspense
+    // boundary or out of static prerender. Since this effect only ever
+    // runs in the browser, raw window.location is the simpler tool.
+    if (typeof window === "undefined") return;
+    const fromUrl = new URLSearchParams(window.location.search).get("description");
     if (fromUrl && description === "") setDescription(fromUrl);
     // intentionally run once on mount; later URL changes shouldn't overwrite
     // eslint-disable-next-line react-hooks/exhaustive-deps

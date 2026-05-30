@@ -1,10 +1,10 @@
 // Marketing home page — full-bleed orbit hero, six-card feature grid,
 // three-step "how it works", placeholder gallery, and a Launch Studio CTA.
-// Server component; only OrbitHero and Header are client islands.
+// Server component; only OrbitStudio and Header are client islands.
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import OrbitHero from "./components/OrbitHero";
+import OrbitStudio from "./components/OrbitStudio";
 import CtaBand from "./components/CtaBand";
 
 const FEATURES = [
@@ -58,7 +58,10 @@ export default function HomePage() {
     <>
       <Header />
       <main>
-        <OrbitHero />
+        {/* OrbitStudio = full conversational studio. It owns the orbit canvas,
+         * the hero with the prompt bar + style chip popover, and the
+         * conversational thread of generations + sticky refine bar. */}
+        <OrbitStudio />
 
         {/* ============ FEATURES ============ */}
         <section

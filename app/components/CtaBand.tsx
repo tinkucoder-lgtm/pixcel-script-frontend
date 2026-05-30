@@ -1,5 +1,7 @@
 // Reused "Launch Studio →" cobalt-glow band that closes the home, about,
 // and pricing pages. Heading/sub copy varies per page so they're props.
+// `href` defaults to "/" because home IS the studio now (the orbit hero
+// owns the prompt + style picker that kicks off generation in /chat).
 
 import Link from "next/link";
 
@@ -7,10 +9,12 @@ export default function CtaBand({
   heading,
   sub,
   ctaLabel = "Launch Studio →",
+  href = "/",
 }: {
   heading: React.ReactNode;
   sub: string;
   ctaLabel?: string;
+  href?: string;
 }) {
   return (
     <div
@@ -42,7 +46,7 @@ export default function CtaBand({
         {sub}
       </p>
       <Link
-        href="/create"
+        href={href}
         style={{
           display: "inline-block",
           background: "var(--cobalt)",

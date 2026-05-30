@@ -11,7 +11,7 @@ export function MetanoiaLogo({ className }: MetanoiaLogoProps) {
   return (
     <svg
       className={className}
-      viewBox="0 0 680 360"
+      viewBox="-80 15 840 320"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label="Metanoia"
@@ -25,7 +25,7 @@ export function MetanoiaLogo({ className }: MetanoiaLogoProps) {
         <ellipse
           cx="340"
           cy="180"
-          rx="315"
+          rx="390"
           ry="112"
           fill="none"
           stroke="#8a93d0"
@@ -36,15 +36,13 @@ export function MetanoiaLogo({ className }: MetanoiaLogoProps) {
 
       <text
         x="340"
-        y="208"
+        y="215"
         textAnchor="middle"
         fill="#ffffff"
-        style={{
-          fontFamily: 'var(--font-serif), Georgia, serif',
-          fontWeight: 500,
-          fontSize: '88px',
-          letterSpacing: '0.015em',
-        }}
+        fontFamily="'Playfair Display', Georgia, serif"
+        fontWeight={500}
+        fontSize={135}
+        letterSpacing="0.015em"
       >
         Metanoia
       </text>
@@ -67,7 +65,7 @@ export function MetanoiaLogo({ className }: MetanoiaLogoProps) {
           <animateMotion
             dur="14s"
             repeatCount="indefinite"
-            path="M 655 180 A 315 112 0 1 1 25 180 A 315 112 0 1 1 655 180"
+            path="M 730 180 A 390 112 0 1 1 -50 180 A 390 112 0 1 1 730 180"
           />
         </g>
         <g>
@@ -89,7 +87,7 @@ export function MetanoiaLogo({ className }: MetanoiaLogoProps) {
             dur="14s"
             repeatCount="indefinite"
             begin="-7s"
-            path="M 655 180 A 315 112 0 1 1 25 180 A 315 112 0 1 1 655 180"
+            path="M 730 180 A 390 112 0 1 1 -50 180 A 390 112 0 1 1 730 180"
           />
         </g>
       </g>

@@ -4,9 +4,14 @@
 // Active route is highlighted via usePathname; mobile drawer slides in
 // at <980px via a local open/close state.
 
+// Clerk v7 replaces the legacy <SignedIn>/<SignedOut> components with a
+// unified <Show when="signed-in" | "signed-out"> API. Same semantics,
+// different export — the spec was written against the v6 API.
+import { Show, SignInButton, UserButton } from '@clerk/nextjs';
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
+import { MetanoiaLogo } from "./MetanoiaLogo";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -20,8 +25,10 @@ export default function Header() {
   const router = useRouter();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive = (href: string) => {
+    if (!pathname) return false;
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  };
 
   const launchStudio = () => router.push("/create");
 
@@ -37,7 +44,7 @@ export default function Header() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "18px 40px",
+          padding: "5px 40px",
           background: "rgba(7, 8, 15, 0.55)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
@@ -47,20 +54,25 @@ export default function Header() {
         <Link
           href="/"
           style={{
-            fontFamily: "var(--serif)",
-            fontWeight: 500,
-            fontSize: "1.5rem",
-            letterSpacing: "0.01em",
-            color: "var(--text)",
+            display: "inline-flex",
+            alignItems: "center",
           }}
         >
-          Metanoia
+          <MetanoiaLogo className="ps-brand-logo" />
         </Link>
 
-        <nav className="ps-nav-main" style={{ display: "flex", alignItems: "center", gap: 30 }}>
+        <nav
+          className="ps-nav-main"
+          style={{ display: "flex", alignItems: "center", gap: 30 }}
+        >
           <div
             className="ps-nav-links"
-            style={{ display: "flex", gap: 26, fontSize: "0.93rem", color: "var(--text-dim)" }}
+            style={{
+              display: "flex",
+              gap: 26,
+              fontSize: "0.93rem",
+              color: "var(--text-dim)",
+            }}
           >
             {NAV.map((n) => {
               const active = isActive(n.href);
@@ -90,11 +102,18 @@ export default function Header() {
           </div>
         </nav>
 
-        <div className="ps-header-actions" style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          
+        <div
+          className="ps-header-actions"
+          style={{ display: "flex", alignItems: "center", gap: 16 }}
+        >
+          <a
             href="#"
             className="ps-btn-ghost"
-            style={{ fontSize: "0.93rem", color: "var(--text-dim)", transition: "color 0.2s" }}
+            style={{
+              fontSize: "0.93rem",
+              color: "var(--text-dim)",
+              transition: "color 0.2s",
+            }}
             onClick={(e) => e.preventDefault()}
           >
             Sign in
@@ -117,6 +136,23 @@ export default function Header() {
           >
             Launch Studio
           </button>
+          {/* Clerk auth UI — sits after Launch Studio per spec. Show is the
+           * Clerk v7 replacement for the legacy <SignedIn>/<SignedOut>. */}
+          <Show when="signed-out">
+            <SignInButton mode="modal">
+              <button className="ps-header-signin">Sign in</button>
+            </SignInButton>
+          </Show>
+          <Show when="signed-in">
+            {/* Clerk v7 dropped the `afterSignOutUrl` prop; UserButton's
+             * default already redirects to "/" after sign-out, which is
+             * what the spec wanted. */}
+            <UserButton
+              appearance={{
+                elements: { avatarBox: { width: '32px', height: '32px' } }
+              }}
+            />
+          </Show>
           <button
             aria-label="Open menu"
             className="ps-hamburger"
@@ -137,7 +173,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile drawer — hidden on desktop via CSS in <style jsx global>. */}
       <div
         className="ps-drawer"
         style={{
@@ -181,16 +216,29 @@ export default function Header() {
             {n.label}
           </Link>
         ))}
-        
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            setDrawerOpen(false);
-          }}
-          style={{ fontSize: "0.95rem", color: "var(--text-dim)" }}
-        >
-          Sign in
-        </a>
+        {/* Clerk auth in mobile drawer — full-width Sign in button for
+         * tap-target sanity; UserButton kept at its native size and
+         * left-aligned to match the rest of the drawer items. */}
+        <Show when="signed-out">
+          <SignInButton mode="modal">
+            <button
+              className="ps-header-signin"
+              style={{ width: "100%" }}
+              onClick={() => setDrawerOpen(false)}
+            >
+              Sign in
+            </button>
+          </SignInButton>
+        </Show>
+        <Show when="signed-in">
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <UserButton
+              appearance={{
+                elements: { avatarBox: { width: '32px', height: '32px' } }
+              }}
+            />
+          </div>
+        </Show>
         <button
           onClick={() => {
             setDrawerOpen(false);
@@ -213,6 +261,26 @@ export default function Header() {
       </div>
 
       <style jsx global>{`
+        .ps-brand-logo {
+          height: 60px;
+          width: auto;
+          display: block;
+        }
+        .ps-header-signin {
+          background: transparent;
+          color: var(--text);
+          border: 1px solid rgba(255,255,255,0.15);
+          padding: 8px 16px;
+          border-radius: 6px;
+          font-size: 14px;
+          cursor: pointer;
+          font-family: inherit;
+          transition: border-color 0.2s, background 0.2s;
+        }
+        .ps-header-signin:hover {
+          border-color: var(--cobalt);
+          background: rgba(255,255,255,0.03);
+        }
         .ps-hamburger span {
           width: 24px;
           height: 2px;
@@ -244,7 +312,10 @@ export default function Header() {
             display: flex !important;
           }
           header {
-            padding: 16px 24px !important;
+            padding: 9px 24px !important;
+          }
+          .ps-brand-logo {
+            height: 48px;
           }
         }
       `}</style>
@@ -259,3 +330,4 @@ const hamSpan: React.CSSProperties = {
   borderRadius: 2,
   transition: "0.3s",
 };
+

@@ -48,9 +48,9 @@ export default function Footer() {
             }}
           />
         </div>
-        Pixel<span style={{ color: "var(--cobalt-2)" }}>Script</span>
+        Metanoia
       </div>
-      <div>© 2026 PixelScript · The anti-AI-slop design engine</div>
+      <div>© 2026 Metanoia · The anti-AI-slop design engine</div>
     </footer>
   );
 }
